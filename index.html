@@ -1,0 +1,755 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Justice Bishop — Software Developer focused on Python, AI, Linux and networking.">
+  <title>Justice Bishop | Software Developer</title>
+
+  <style>
+    :root {
+      --bg: #0b1220;
+      --surface: #111a2b;
+      --surface-2: #162238;
+      --border: #263650;
+      --text: #edf3fa;
+      --muted: #91a0b5;
+      --accent: #5cc8ff;
+      --accent-2: #ffb454;
+      --success: #63d6a0;
+      --max-width: 1080px;
+      --sans: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      --mono: "IBM Plex Mono", "SFMono-Regular", Consolas, monospace;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--sans);
+      line-height: 1.6;
+    }
+
+    a { color: inherit; text-decoration: none; }
+
+    .container {
+      width: min(var(--max-width), calc(100% - 40px));
+      margin: 0 auto;
+    }
+
+    /* Navigation */
+    .nav {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      background: rgba(11, 18, 32, 0.94);
+      border-bottom: 1px solid rgba(38, 54, 80, 0.85);
+      backdrop-filter: blur(12px);
+    }
+
+    .nav-inner {
+      min-height: 68px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+    }
+
+    .brand {
+      font-family: var(--mono);
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--accent);
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 26px;
+      font-family: var(--mono);
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    .nav-links a:hover { color: var(--text); }
+
+    /* Hero */
+    .hero {
+      padding: 92px 0 100px;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.15fr 0.85fr;
+      align-items: center;
+      gap: 70px;
+    }
+
+    .availability {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--success);
+      font-family: var(--mono);
+      font-size: 12px;
+      margin-bottom: 22px;
+      opacity: 0;
+      transform: translateX(-18px);
+      animation: slideIn 0.7s ease forwards;
+    }
+
+    .availability::before {
+      content: "";
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--success);
+      box-shadow: 0 0 9px rgba(99, 214, 160, 0.55);
+      flex-shrink: 0;
+    }
+
+    .availability .cursor {
+      display: inline-block;
+      width: 7px;
+      height: 14px;
+      margin-left: 2px;
+      background: var(--success);
+      vertical-align: -2px;
+      animation: blink 1s step-end infinite;
+    }
+
+    @keyframes slideIn {
+      to {
+        opacity: 1;
+        transform: translateX(0);
+      }
+    }
+
+    @keyframes blink {
+      50% { opacity: 0; }
+    }
+
+    .hero h1 {
+      font-family: var(--mono);
+      font-size: clamp(42px, 7vw, 72px);
+      line-height: 1.02;
+      letter-spacing: -0.045em;
+      margin-bottom: 18px;
+    }
+
+    .hero-role {
+      color: var(--accent);
+      font-family: var(--mono);
+      font-size: clamp(17px, 2.5vw, 22px);
+      margin-bottom: 20px;
+    }
+
+    .hero-text {
+      max-width: 620px;
+      color: var(--muted);
+      font-size: 17px;
+      margin-bottom: 30px;
+    }
+
+    .buttons {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 44px;
+      padding: 0 18px;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      font-family: var(--mono);
+      font-size: 12px;
+      transition: 0.2s ease;
+    }
+
+    .button.primary {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #07111d;
+      font-weight: 600;
+    }
+
+    .button:hover {
+      transform: translateY(-2px);
+      border-color: var(--accent);
+    }
+
+    /* Portrait */
+    .portrait-wrap {
+      position: relative;
+      max-width: 390px;
+      margin-left: auto;
+    }
+
+    .portrait {
+      display: block;
+      width: 100%;
+      aspect-ratio: 4 / 5;
+      object-fit: cover;
+      border-radius: 10px;
+      border: 1px solid var(--border);
+    }
+
+    .portrait-label {
+      position: absolute;
+      left: -18px;
+      bottom: 22px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 10px 14px;
+      font-family: var(--mono);
+      font-size: 11px;
+      color: var(--muted);
+    }
+
+    /* Sections */
+    section {
+      padding: 84px 0;
+      border-top: 1px solid rgba(38, 54, 80, 0.7);
+    }
+
+    .section-heading {
+      display: flex;
+      align-items: baseline;
+      gap: 14px;
+      margin-bottom: 38px;
+    }
+
+    .section-number {
+      color: var(--accent-2);
+      font-family: var(--mono);
+      font-size: 12px;
+    }
+
+    .section-title {
+      font-family: var(--mono);
+      font-size: 24px;
+    }
+
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1.4fr 0.8fr;
+      gap: 70px;
+    }
+
+    .about p {
+      color: var(--muted);
+      font-size: 16px;
+      max-width: 680px;
+    }
+
+    .facts {
+      border-left: 1px solid var(--border);
+      padding-left: 26px;
+    }
+
+    .fact {
+      margin-bottom: 22px;
+    }
+
+    .fact:last-child { margin-bottom: 0; }
+
+    .fact-label {
+      display: block;
+      font-family: var(--mono);
+      color: var(--accent);
+      font-size: 11px;
+      margin-bottom: 4px;
+    }
+
+    .fact-value {
+      color: var(--text);
+      font-size: 14px;
+    }
+
+    /* Skills */
+    .skills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .skill {
+      border: 1px solid var(--border);
+      background: var(--surface);
+      border-radius: 5px;
+      padding: 9px 13px;
+      color: var(--text);
+      font-family: var(--mono);
+      font-size: 12px;
+    }
+
+    /* Projects */
+    .projects {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 18px;
+    }
+
+    .project {
+      display: flex;
+      flex-direction: column;
+      min-height: 230px;
+      padding: 24px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      transition: 0.2s ease;
+    }
+
+    .project:hover {
+      border-color: #3d587d;
+      transform: translateY(-3px);
+    }
+
+    .project-type {
+      font-family: var(--mono);
+      font-size: 10px;
+      color: var(--accent-2);
+      margin-bottom: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    .project h3 {
+      font-family: var(--mono);
+      font-size: 17px;
+      margin-bottom: 10px;
+    }
+
+    .project p {
+      color: var(--muted);
+      font-size: 14px;
+      margin-bottom: 20px;
+    }
+
+    .tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 7px;
+      margin-top: auto;
+    }
+
+    .tag {
+      padding: 4px 8px;
+      background: var(--surface-2);
+      border-radius: 3px;
+      color: var(--muted);
+      font-family: var(--mono);
+      font-size: 10px;
+    }
+
+    .project-link {
+      margin-top: 18px;
+      color: var(--accent);
+      font-family: var(--mono);
+      font-size: 11px;
+    }
+
+    /* Experience */
+    .experience {
+      display: grid;
+      grid-template-columns: 180px 1fr;
+      gap: 50px;
+    }
+
+    .experience-meta {
+      font-family: var(--mono);
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    .experience h3 {
+      font-size: 19px;
+      margin-bottom: 5px;
+    }
+
+    .experience-role {
+      color: var(--accent);
+      font-family: var(--mono);
+      font-size: 12px;
+      margin-bottom: 16px;
+    }
+
+    .experience ul {
+      color: var(--muted);
+      padding-left: 18px;
+      font-size: 14px;
+    }
+
+    .experience li { margin-bottom: 8px; }
+
+    /* Contact */
+    .contact-box {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 30px;
+      padding: 30px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+    }
+
+    .contact-box p {
+      color: var(--muted);
+      max-width: 620px;
+    }
+
+    .contact-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      flex-shrink: 0;
+    }
+
+    footer {
+      padding: 28px 0 42px;
+      border-top: 1px solid var(--border);
+      color: var(--muted);
+      font-family: var(--mono);
+      font-size: 11px;
+    }
+
+    footer .container {
+      display: flex;
+      justify-content: space-between;
+      gap: 20px;
+    }
+
+    @media (max-width: 800px) {
+      .nav-links { display: none; }
+
+      .hero { padding: 65px 0 75px; }
+
+      .hero-grid,
+      .about-grid,
+      .experience {
+        grid-template-columns: 1fr;
+        gap: 36px;
+      }
+
+      .portrait-wrap {
+        margin: 0;
+        max-width: 340px;
+      }
+
+      .facts {
+        border-left: 0;
+        border-top: 1px solid var(--border);
+        padding: 24px 0 0;
+      }
+
+      .projects { grid-template-columns: 1fr; }
+
+      .contact-box {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .availability {
+        animation: none;
+        opacity: 1;
+        transform: none;
+      }
+
+      .availability .cursor {
+        animation: none;
+      }
+    }
+
+    @media (max-width: 520px) {
+      .container { width: min(100% - 28px, var(--max-width)); }
+
+      .hero h1 { font-size: 42px; }
+
+      section { padding: 62px 0; }
+
+      .portrait-label { left: 10px; bottom: 10px; }
+
+      footer .container {
+        flex-direction: column;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <nav class="nav">
+    <div class="container nav-inner">
+      <a class="brand" href="#">justicebishop.dev</a>
+      <div class="nav-links">
+        <a href="#about">About</a>
+        <a href="#skills">Skills</a>
+        <a href="#projects">Projects</a>
+        <a href="#experience">Experience</a>
+        <a href="#contact">Contact</a>
+      </div>
+    </div>
+  </nav>
+
+  <header class="hero">
+    <div class="container hero-grid">
+      <div>
+        <div class="availability"><span id="availabilityText"></span><span class="cursor"></span></div>
+        <h1>Justice<br>Bishop</h1>
+        <p class="hero-role">Software Developer | AI/ML &amp; Linux</p>
+        <p class="hero-text">
+          I build practical software with Python and modern development tools,
+          while exploring AI, Linux systems, and networking. I enjoy turning
+          problems into working, maintainable solutions.
+        </p>
+
+        <div class="buttons">
+          <a class="button primary" href="#projects">View Projects</a>
+          <a class="button" href="https://github.com/Jbishop-cyber" target="_blank" rel="noopener">GitHub</a>
+          <a class="button" href="mailto:globalresearchinstitution@gmail.com">Contact Me</a>
+        </div>
+      </div>
+
+      <div class="portrait-wrap">
+        <img class="portrait" src="Profile.jpg" alt="Portrait of Justice Bishop">
+        <!-- <div class="portrait-label">/ software.developer</div> -->
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section id="about">
+      <div class="container">
+        <div class="section-heading">
+          <span class="section-number">01</span>
+          <h2 class="section-title">About Me</h2>
+        </div>
+
+        <div class="about-grid">
+          <div class="about">
+            <p>
+              I'm Justice Bishop, an aspiring software developer currently
+              training at Learn2Earn. My focus is on building practical
+              applications, strengthening my programming fundamentals, and
+              learning how software interacts with Linux systems and networks.
+            </p>
+            <br>
+            <p>
+              I learn primarily through hands-on projects, including terminal
+              applications, web APIs, data storage, and AI-powered tools.
+              I'm continuing to develop my skills in Python, Go, backend
+              development, AI/LLM integration, Linux, and networking.
+            </p>
+          </div>
+
+          <div class="facts">
+            <div class="fact">
+              <span class="fact-label">CURRENT TRAINING</span>
+              <span class="fact-value">Learn2Earn — 2-Year Program</span>
+            </div>
+            <div class="fact">
+              <span class="fact-label">PRIMARY LANGUAGE</span>
+              <span class="fact-value">Python</span>
+            </div>
+            <div class="fact">
+              <span class="fact-label">INTERESTS</span>
+              <span class="fact-value">AI/ML, Linux, Backend &amp; Networking</span>
+            </div>
+            <div class="fact">
+              <span class="fact-label">LOCATION</span>
+              <span class="fact-value">Nigeria</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="skills">
+      <div class="container">
+        <div class="section-heading">
+          <span class="section-number">02</span>
+          <h2 class="section-title">Technical Skills</h2>
+        </div>
+
+        <div class="skills">
+          <span class="skill">Python</span>
+          <span class="skill">Go</span>
+          <span class="skill">JavaScript</span>
+          <span class="skill">Flask</span>
+          <span class="skill">SQLite</span>
+          <span class="skill">REST APIs</span>
+          <span class="skill">Git &amp; GitHub</span>
+          <span class="skill">Linux / Ubuntu</span>
+          <span class="skill">AI / LLM Integration</span>
+          <span class="skill">Prompt Engineering</span>
+          <span class="skill">TCP/IP</span>
+          <span class="skill">IP Addressing</span>
+          <span class="skill">LAN &amp; DNS</span>
+        </div>
+      </div>
+    </section>
+
+    <section id="projects">
+      <div class="container">
+        <div class="section-heading">
+          <span class="section-number">03</span>
+          <h2 class="section-title">Selected Projects</h2>
+        </div>
+
+        <div class="projects">
+          <article class="project">
+            <div class="project-type">AI / Linux</div>
+            <h3>Jay — Terminal AI Assistant</h3>
+            <p>
+              A Linux terminal assistant built to work with programming,
+              system commands, conversation history, and AI tool calling.
+            </p>
+            <div class="tags">
+              <span class="tag">Python</span>
+              <span class="tag">OpenRouter</span>
+              <span class="tag">SQLite</span>
+              <span class="tag">Linux</span>
+            </div>
+            <a class="project-link" href="https://github.com/Jbishop-cyber/terminal-ai" target="_blank" rel="noopener">View repository →</a>
+          </article>
+
+          <article class="project">
+            <div class="project-type">Web / Backend</div>
+            <h3>AI Prompt Manager</h3>
+            <p>
+              A Flask and SQLite application for creating and managing AI
+              prompts through a backend API and web interface.
+            </p>
+            <div class="tags">
+              <span class="tag">Flask</span>
+              <span class="tag">SQLite</span>
+              <span class="tag">REST API</span>
+              <span class="tag">JavaScript</span>
+            </div>
+            <a class="project-link" href="https://github.com/Jbishop-cyber/ai-prompt-manager" target="_blank" rel="noopener">View repository →</a>
+          </article>
+
+          <article class="project">
+            <div class="project-type">Python</div>
+            <h3>Student Management System</h3>
+            <p>
+              A Python project for managing student records with structured
+              input, validation, and persistent data storage.
+            </p>
+            <div class="tags">
+              <span class="tag">Python</span>
+              <span class="tag">Data Validation</span>
+              <span class="tag">File Handling</span>
+            </div>
+            <a class="project-link" href="https://github.com/Jbishop-cyber/student-management-system" target="_blank" rel="noopener">View repository →</a>
+          </article>
+
+          <article class="project">
+            <div class="project-type">Python / Data</div>
+            <h3>Expense Tracker</h3>
+            <p>
+              A terminal application for recording, viewing, calculating, and
+              deleting expenses with JSON-based persistence.
+            </p>
+            <div class="tags">
+              <span class="tag">Python</span>
+              <span class="tag">JSON</span>
+              <span class="tag">Functions</span>
+              <span class="tag">CRUD</span>
+            </div>
+            <a class="project-link" href="https://github.com/Jbishop-cyber/expense-tracker" target="_blank" rel="noopener">View repository →</a>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="experience">
+      <div class="container">
+        <div class="section-heading">
+          <span class="section-number">04</span>
+          <h2 class="section-title">Learning &amp; Experience</h2>
+        </div>
+
+        <div class="experience">
+          <div class="experience-meta">2026 — Present</div>
+
+          <div>
+            <h3>Learn2Earn</h3>
+            <div class="experience-role">Software Development Training</div>
+            <ul>
+              <li>Programming fundamentals with Python and Go.</li>
+              <li>Hands-on software projects and Git/GitHub workflows.</li>
+              <li>Linux and Ubuntu setup, configuration, and troubleshooting.</li>
+              <li>Networking fundamentals including TCP/IP, IP addressing, LAN, and DNS.</li>
+              <li>Exploring AI tools and LLM-based application development.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact">
+      <div class="container">
+        <div class="section-heading">
+          <span class="section-number">05</span>
+          <h2 class="section-title">Contact</h2>
+        </div>
+
+        <div class="contact-box">
+          <p>
+            Interested in software development, AI, Linux, and practical
+            technology projects. Available for opportunities, collaboration,
+            and continued learning.
+          </p>
+
+          <div class="contact-links">
+            <a class="button" href="mailto:globalresearchinstitution@gmail.com">Email</a>
+            <a class="button" href="https://www.linkedin.com/in/justice-bishop-68a2542ab/" target="_blank" rel="noopener">LinkedIn</a>
+            <a class="button" href="https://github.com/Jbishop-cyber" target="_blank" rel="noopener">GitHub</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">
+      <span>justicebishop.dev</span>
+      <span>Built with HTML &amp; CSS · 2025</span>
+    </div>
+  </footer>
+
+  <script>
+    const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const availabilityText = document.getElementById("availabilityText");
+    const availabilityMessage = "OPEN TO OPPORTUNITIES";
+
+    if (reduceMotion) {
+      availabilityText.textContent = availabilityMessage;
+    } else {
+      let index = 0;
+
+      function typeAvailability() {
+        if (index <= availabilityMessage.length) {
+          availabilityText.textContent = availabilityMessage.slice(0, index);
+          index++;
+          setTimeout(typeAvailability, 55);
+        }
+      }
+
+      setTimeout(typeAvailability, 350);
+    }
+  </script>
+</body>
+</html>
